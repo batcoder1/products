@@ -63,7 +63,9 @@ Request example:
 https://www.getpostman.com/collections/7361e018c8a0edd6c6ef
 
 ### Environment
+
 VARIABLE  VALUE
+
 url       http://localhost:3003
 token     token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9....
 
