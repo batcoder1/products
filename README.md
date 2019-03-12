@@ -8,26 +8,28 @@ Products CRUD, user signup and login. Application with jwt token authetication m
 
 ### POST products/create
 Create a new product in BD. Some field are required
-Request example: 
 
+Request example: 
+```json
   headers.autentication: token *tokenAuth*
 
   body:{
     "name": "Trackpad mac",
     "description": "mouse trackpad"
   } 
-
+```
 
 ### POST products/delete
 Delete a product from DB. *ProductId* property are required in body section.
 
 Request example:
-
+```json
   headers.autentication: token *tokenAuth*
 
   body: {	
     "productId": "5c882bee5b0b834fbeca50ca" 
   } 
+```
 
 
 ### GET products
@@ -37,23 +39,24 @@ Get all products
 Create a new user in DB. Email and password are required in body section.
 
 Request example:
-
-body: {
-  "email": "kike@localhost.com",
-  "password": "pass1234"
-}
+```json
+  body: {
+    "email": "kike@localhost.com",
+    "password": "pass1234"
+  }
+```
 
 ### POST user/login
 Aplication login endpoint. Email and password data are required in body section. 
 When login is succesfull the request responds with *tokenAuth* property that must be used to authenticate in follows requests.
 
 Request example:
-
-body:{	
-  "email": "kike@localhost.com",
-  "password": "pass1234"
-}
-
+```json
+  body:{	
+    "email": "kike@localhost.com",
+    "password": "pass1234"
+  }
+```
 
 ## Postman test 
 ### Collection (copy link and add to postman)
