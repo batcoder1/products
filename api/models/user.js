@@ -26,11 +26,11 @@ UserSchema.statics.authenticate = async (query, password) => {
   try {
     const _user = await user.findOne(query);
     if (!_user) {
-      throw "U018"
+      throw "U002"
     }
     const result = await bcrypt.compare(password, _user.password);
     if (!result) {
-      throw "U018"
+      throw "U002"
     }
     return _user;
 

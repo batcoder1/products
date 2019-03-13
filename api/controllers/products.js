@@ -63,8 +63,10 @@ exports.findAll = findAll;
 async function deleteProduct (req, res){
 
     try {
-        let { productId } = req.body;
-
+        if (!req.body.productId ) {
+            throw 'BRP'
+        }
+        let  productId = req.body.productId;
         await service.deleteProduct(productId)
    
         res.send( {

@@ -71,4 +71,9 @@ url       http://localhost:3003
 token     token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9....
 
 
-
+## Error Codes
+BRP: Bad request params;
+U001: Error, creating user;
+U002: email or password incorrect;
+P001: Error creating product;
+P002: Error getting products

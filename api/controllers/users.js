@@ -31,7 +31,7 @@ async function signup (req, res) {
 
         });
     } catch (err) {
-        return handler(err, req, res)
+        return handler(err, res)
     };
 
 };

@@ -50,7 +50,7 @@ exports.createProduct = createProduct;
  */
 async function deleteProduct (productId) {
     try {
-    
+
         await Product.findByIdAndRemove(productId);
 
     } catch (err) {
