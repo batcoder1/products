@@ -1,7 +1,7 @@
-const User = require('../models/user');
-const auth = require('../helpers/auth'); 
-const service = require('../ODM/service');
-
+const User = require('../models/user')
+const auth = require('../helpers/auth')
+const service = require('../ODM/service')
+const env = require('../../config/development')
 
 /**
  * Signup
@@ -11,66 +11,58 @@ const service = require('../ODM/service');
  * @returns
  */
 async function signup (req, res) {
-    try {
-        let {
-            email,
-            password,
-        } = req.body
+  try {
+    let {
+      email,
+      password
+    } = req.body
 
-        if (!email || !password) {
-            throw 'BRP'
-        }
-   
-        const newUser = {email,password
+    if (!email || !password) {
+      throw env.err.BRP
+    }
 
-        }
-        await service.createUser(newUser);
-        
-        return res.status(200).send({
-            message: "User created succesfully",
+    const newUser = { email, password
 
-        });
-    } catch (err) {
-        return handler(err, res)
-    };
+    }
+    await service.createUser(newUser)
+    return res.status(200).send({
+      message: 'User created succesfully'
+    })
+  } catch (err) {
+    return handler(err, res)
+  };
+}
 
-};
-exports.signup = signup;
+exports.signup = signup
 
 /**
  * Login
- *  
+ *
  * @param {*} req
  * @param {*} res
  * @param {*} next
  * @returns
  */
-async function login (req, res){
+async function login (req, res) {
+  let { email, password } = req.body
+  try {
+    if (!email && !password) {
+      throw env.errores.BRP
+    }
+    const query = {
+      'email': email
+    }
+    let user = await User.authenticate(query, password)
 
-    let { email, password } = req.body
-  
-    try {
-        if (!email && !password) {
-            throw 'BRP'
-        }
-        const query = {
-            'email': email
-        };
-        let user = await User.authenticate(query, password);
+    // token
+    const tokenAuth = auth.createToken(user)
 
-
-    
-        // token
-        const tokenAuth = auth.createToken(user);
-
-        return res.status(200).send({tokenAuth});
-
-    } catch (err) {
-        handler(err, res)
-
-    };
+    return res.status(200).send({ tokenAuth })
+  } catch (err) {
+    handler(err, res)
+  }
 };
-exports.login = login;
+exports.login = login
 
 /**
  * Handler
@@ -79,22 +71,21 @@ exports.login = login;
  * @param {*} res
  * @returns code: err
  */
-function handler(err, res) {
-
-    if (err) {
-        if (err.message) {
-            return res.status(500).send({
-                code: err.message
-            });
-        } else {
-            return res.status(500).send({
-                code: err
-            });
-        }
+function handler (err, res) {
+  if (err) {
+    if (err.message) {
+      return res.status(500).send({
+        code: err.message
+      })
+    } else {
+      return res.status(500).send({
+        code: err
+      })
     }
+  }
 
-    return res.status(500).send({
-        code: "500",
-        message: "Internal Server error"
-    });
+  return res.status(500).send({
+    code: '500',
+    message: 'Internal Server error'
+  })
 }
